@@ -17,10 +17,12 @@ public class IntToEng {
     }
 	static String translateEng(int n) {
 		if(n<=99)return underTwo(n);
-		else {
-			int shou100=n/100;
-			int amari100=n%100;//amari100は下二桁
-			num=numbers1[shou100]+" hundred and "+underTwo(amari100);
+		else if(n<=999)return underThree(n);
+		else{
+			int shou1000=n/1000;			
+			int amari1000=n%1000;//amari100は下二桁
+			if(amari1000==0)return numbers1[shou1000]+" thousand";
+			num=numbers1[shou1000]+" thousand and "+underThree(amari1000);
 			return num;
 		}
 
@@ -40,6 +42,7 @@ public class IntToEng {
 		else {
 			int shou100=n/100;
 			int amari100=n%100;//amari100は下二桁
+			if(amari100==0)return numbers1[shou100]+" hundred";
 			num=numbers1[shou100]+" hundred and "+underTwo(amari100);
 			return num;
 		}
