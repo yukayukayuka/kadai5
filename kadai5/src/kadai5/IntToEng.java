@@ -20,13 +20,10 @@ public class IntToEng {
 		else if(n<=999)return underThree(n);//hundred
 		else if(n<=999999)return underMillion(n);//thousand
 		else if(n<=999999999)return underBillion(n);//million
+		else if(n<=2147483647)return underTenBillion(n);
 		else{
-			//error
-			/*int shouM=n/10000;
-			int amariM=n%10000;
-			if(amariM==0)return numbers10[shouM]+" thousand";
-			num=numbers10[shouM]+" thousand and "+underFour(amariM);*/
-			return "over billion";
+			//一応書いたけど、意味なし
+			return "over integer";
 		}
 
     }
@@ -85,5 +82,21 @@ public class IntToEng {
 		else if(shouM<=999)return underThree(shouM)+" million and "+underMillion(amariM);
 		
 		return num;
+	}
+	static String underTenBillion(int n){
+		int shouB=n/1000000000;
+		int amariB=n%1000000000;
+		
+		//キリ番
+		if(amariB==0 && shouB<=9)return numbers1[shouB]+" billion";
+		else if(amariB==0 && shouB<=99)return underTwo(shouB)+" billion";
+		else if(amariB==0 && shouB<=999)return underThree(shouB)+" billion";
+		
+		//そのた
+		if(shouB<=19)return numbers1[shouB]+" billion and "+underBillion(amariB);
+		else if(shouB<=99)return underTwo(shouB)+" billion and "+underBillion(amariB);
+		else if(shouB<=999)return underThree(shouB)+" billion and "+underBillion(amariB);
+		
+		return"num";
 	}
 }
