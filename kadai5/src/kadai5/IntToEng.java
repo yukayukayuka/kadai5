@@ -17,15 +17,16 @@ public class IntToEng {
     }
 	static String translateEng(int n) {
 		if(n<=99)return underTwo(n);
-		else if(n<=999)return underThree(n);
-		else if(n<=9999)return underFour(n);
+		else if(n<=999)return underThree(n);//hundred
+		else if(n<=999999)return underMillion(n);//thousand
+		else if(n<=999999999)return underBillion(n);//million
 		else{
 			//error
 			/*int shouM=n/10000;
 			int amariM=n%10000;
 			if(amariM==0)return numbers10[shouM]+" thousand";
 			num=numbers10[shouM]+" thousand and "+underFour(amariM);*/
-			return num;
+			return "over billion";
 		}
 
     }
@@ -34,6 +35,7 @@ public class IntToEng {
 		else{
 			int shou=n/10;
 			int amari=n%10;
+			if(amari==0)return numbers10[shou];
 			num=numbers10[shou]+"-"+numbers1[amari];
 			return num;
 		}
@@ -48,17 +50,40 @@ public class IntToEng {
 			return num;
 		}
 	}
-	static String underFour(int n){//nは４桁の整数
+	static String underMillion(int n){//nは４桁の整数
 		if(n<=999)return underThree(n);
 		else{
 			int shou1000=n/1000;			
 			int amari1000=n%1000;//amari100は下二桁
+			
+			//キリ番
 			if(amari1000==0 && shou1000<=9)return numbers1[shou1000]+" thousand";
 			else if(amari1000==0 && shou1000<=99)return underTwo(shou1000)+" thousand";
 			else if(amari1000==0 && shou1000<=999)return underThree(shou1000)+" thousand";
 			
+			//そのた
+			if(shou1000<=19)return numbers1[shou1000]+" thousand"+underThree(amari1000);
+			else if(shou1000<=99)return underTwo(shou1000)+" thousand"+underThree(amari1000);
+			else if(shou1000<=999)return underThree(shou1000)+" thousand and "+underThree(amari1000);
+			
 			num=numbers1[shou1000]+" thousand and "+underThree(amari1000);
 			return num;
 		}
+	}
+	static String underBillion(int n){
+		int shouM=n/1000000;
+		int amariM=n%1000000;
+		
+		//キリ番
+		if(amariM==0 && shouM<=9)return numbers1[shouM]+" million";
+		else if(amariM==0 && shouM<=99)return underTwo(shouM)+" million";
+		else if(amariM==0 && shouM<=999)return underThree(shouM)+" million";
+		
+		//そのた
+		if(shouM<=19)return numbers1[shouM]+" million"+underMillion(amariM);
+		else if(shouM<=99)return underTwo(shouM)+" million"+underMillion(amariM);
+		else if(shouM<=999)return underThree(shouM)+" million and "+underMillion(amariM);
+		
+		return num;
 	}
 }
