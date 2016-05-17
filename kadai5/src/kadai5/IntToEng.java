@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class IntToEng {
 	static String num="";
 	static String numbers1[]={"zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"};
-	//static String numberTeen[]={"ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"};
 	static String numbers10[]={"","ten","twenty","thirty","fourty","fifty","sixty","seventy","eighty","ninety"};
 
 	public static void main(String[] args) {
@@ -20,7 +19,7 @@ public class IntToEng {
 		else if(n<=999)return underThree(n);//hundred
 		else if(n<=999999)return underMillion(n);//thousand
 		else if(n<=999999999)return underBillion(n);//million
-		else if(n<=2147483647)return underTenBillion(n);
+		else if(n<=2147483647)return underTenBillion(n);//billion
 		else{
 			//一応書いたけど、意味なし
 			return "over integer";
@@ -47,7 +46,7 @@ public class IntToEng {
 			return num;
 		}
 	}
-	static String underMillion(int n){//nは４桁の整数
+	static String underMillion(int n){//nは100万未満の整数
 		if(n<=999)return underThree(n);
 		else{
 			int shou1000=n/1000;			
@@ -67,7 +66,7 @@ public class IntToEng {
 			return num;
 		}
 	}
-	static String underBillion(int n){
+	static String underBillion(int n){//nは10億未満の整数
 		int shouM=n/1000000;
 		int amariM=n%1000000;
 		
@@ -83,7 +82,7 @@ public class IntToEng {
 		
 		return num;
 	}
-	static String underTenBillion(int n){
+	static String underTenBillion(int n){//nは10億単位までの整数（intの最大値まで）
 		int shouB=n/1000000000;
 		int amariB=n%1000000000;
 		
